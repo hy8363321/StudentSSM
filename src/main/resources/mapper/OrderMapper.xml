@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.mapper.OrderMapper">
+  <resultMap id="BaseResultMap" type="com.demo.pojo.Order">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="approver_number" jdbcType="BIGINT" property="approverNumber" />
+    <result column="club_name" jdbcType="VARCHAR" property="clubName" />
+    <result column="club_scale" jdbcType="INTEGER" property="clubScale" />
+    <result column="college" jdbcType="VARCHAR" property="college" />
+    <result column="area" jdbcType="VARCHAR" property="area" />
+    <result column="club_types" jdbcType="VARCHAR" property="clubTypes" />
+    <result column="club_registrant" jdbcType="VARCHAR" property="clubRegistrant" />
+    <result column="club_principal" jdbcType="VARCHAR" property="clubPrincipal" />
+    <result column="club_adviser" jdbcType="VARCHAR" property="clubAdviser" />
+    <result column="registrant_telephone" jdbcType="BIGINT" property="registrantTelephone" />
+    <result column="principal_telephone" jdbcType="BIGINT" property="principalTelephone" />
+    <result column="student_id" jdbcType="BIGINT" property="studentId" />
+    <result column="principal_number" jdbcType="BIGINT" property="principalNumber" />
+    <result column="registrant_time" jdbcType="TIMESTAMP" property="registrantTime" />
+    <result column="application_time" jdbcType="TIMESTAMP" property="applicationTime" />
+    <result column="document_status" jdbcType="INTEGER" property="documentStatus" />
+    <result column="register_status" jdbcType="INTEGER" property="registerStatus" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from approver_order
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.demo.pojo.Order">
+    insert into approver_order ( approver_number, club_name,
+      club_scale, college, area, 
+      club_types, club_registrant, club_principal, 
+      club_adviser, registrant_telephone, principal_telephone, 
+      student_id, principal_number, registrant_time, 
+      application_time, document_status, register_status
+      )
+    values ( #{approverNumber,jdbcType=BIGINT}, #{clubName,jdbcType=VARCHAR},
+      #{clubScale,jdbcType=INTEGER}, #{college,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, 
+      #{clubTypes,jdbcType=VARCHAR}, #{clubRegistrant,jdbcType=VARCHAR}, #{clubPrincipal,jdbcType=VARCHAR}, 
+      #{clubAdviser,jdbcType=VARCHAR}, #{registrantTelephone,jdbcType=BIGINT}, #{principalTelephone,jdbcType=BIGINT}, 
+      #{studentId,jdbcType=BIGINT}, #{principalNumber,jdbcType=BIGINT}, #{registrantTime,jdbcType=TIMESTAMP}, 
+      #{applicationTime,jdbcType=TIMESTAMP}, #{documentStatus,jdbcType=INTEGER}, #{registerStatus,jdbcType=INTEGER}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.demo.pojo.Order">
+    update approver_order
+    set approver_number = #{approverNumber,jdbcType=BIGINT},
+      club_name = #{clubName,jdbcType=VARCHAR},
+      club_scale = #{clubScale,jdbcType=INTEGER},
+      college = #{college,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      club_types = #{clubTypes,jdbcType=VARCHAR},
+      club_registrant = #{clubRegistrant,jdbcType=VARCHAR},
+      club_principal = #{clubPrincipal,jdbcType=VARCHAR},
+      club_adviser = #{clubAdviser,jdbcType=VARCHAR},
+      registrant_telephone = #{registrantTelephone,jdbcType=BIGINT},
+      principal_telephone = #{principalTelephone,jdbcType=BIGINT},
+      student_id = #{studentId,jdbcType=BIGINT},
+      principal_number = #{principalNumber,jdbcType=BIGINT},
+      registrant_time = #{registrantTime,jdbcType=TIMESTAMP},
+      application_time = #{applicationTime,jdbcType=TIMESTAMP},
+      document_status = #{documentStatus,jdbcType=INTEGER},
+      register_status = #{registerStatus,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, approver_number, club_name, club_scale, college, area, club_types, club_registrant, 
+    club_principal, club_adviser, registrant_telephone, principal_telephone, student_id, 
+    principal_number, registrant_time, application_time, document_status, register_status
+    from approver_order
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, approver_number, club_name, club_scale, college, area, club_types, club_registrant, 
+    club_principal, club_adviser, registrant_telephone, principal_telephone, student_id, 
+    principal_number, registrant_time, application_time, document_status, register_status
+    from approver_order
+  </select> 
+</mapper>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.mapper.TypesMapper">
+  <resultMap id="BaseResultMap" type="com.demo.pojo.Types">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="value" jdbcType="VARCHAR" property="value" />
+    <result column="grade" jdbcType="INTEGER" property="grade" />
+    <result column="grade_value" jdbcType="VARCHAR" property="gradeValue" />
+    <result column="super_id" jdbcType="BIGINT" property="superId" />
+    <result column="super_name" jdbcType="VARCHAR" property="superName" />
+    <result column="enter_time" jdbcType="TIMESTAMP" property="enterTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="operation_name" jdbcType="VARCHAR" property="operationName" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from types
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.demo.pojo.Types">
+    insert into types (id, name, value, 
+      grade, grade_value, super_id, 
+      super_name, enter_time, status, 
+      operation_name)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, 
+      #{grade,jdbcType=INTEGER}, #{gradeValue,jdbcType=VARCHAR}, #{superId,jdbcType=BIGINT}, 
+      #{superName,jdbcType=VARCHAR}, #{enterTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, 
+      #{operationName,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.demo.pojo.Types">
+    update types
+    set name = #{name,jdbcType=VARCHAR},
+      value = #{value,jdbcType=VARCHAR},
+      grade = #{grade,jdbcType=INTEGER},
+      grade_value = #{gradeValue,jdbcType=VARCHAR},
+      super_id = #{superId,jdbcType=BIGINT},
+      super_name = #{superName,jdbcType=VARCHAR},
+      enter_time = #{enterTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      operation_name = #{operationName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, name, value, grade, grade_value, super_id, super_name, enter_time, status, 
+    operation_name
+    from types
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, name, value, grade, grade_value, super_id, super_name, enter_time, status, 
+    operation_name
+    from types
+  </select>
+</mapper>

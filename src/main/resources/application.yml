@@ -1,0 +1,35 @@
+server:
+  port: 8002
+
+logging:
+  config: classpath:log4j2.xml
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/organization?characterEncoding=utf8&serverTimezone=UTC
+    username: root
+    password: root
+
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML5
+    encoding: utf-8
+  servlet:
+    multipart:
+      enabled: true
+
+
+ftp:
+  host: 192.168.30.129
+  username: tang
+  password: 1234
+  port: 21
+

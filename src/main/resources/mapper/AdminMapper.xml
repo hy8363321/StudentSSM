@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.mapper.AdminMapper">
+  <resultMap id="BaseResultMap" type="com.demo.pojo.Admin">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="admin_name" jdbcType="VARCHAR" property="adminName" />
+    <result column="admin_number" jdbcType="VARCHAR" property="adminNumber" />
+    <result column="admin_telephone" jdbcType="BIGINT" property="adminTelephone" />
+    <result column="admin_sys" jdbcType="INTEGER" property="adminSys" />
+    <result column="enter_time" jdbcType="TIMESTAMP" property="enterTime" />
+    <result column="safety_problem" jdbcType="VARCHAR" property="safetyProblem" />
+    <result column="safety_answer" jdbcType="VARCHAR" property="safetyAnswer" />
+    <result column="approver_numbers" jdbcType="BIGINT" property="approverNumbers" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from admin
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.demo.pojo.Admin">
+    insert into admin (id, username, password, 
+      admin_name, admin_number, admin_telephone, 
+      admin_sys, enter_time, safety_problem, 
+      safety_answer, approver_numbers, status
+      )
+    values (#{id,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{adminName,jdbcType=VARCHAR}, #{adminNumber,jdbcType=VARCHAR}, #{adminTelephone,jdbcType=BIGINT}, 
+      #{adminSys,jdbcType=INTEGER}, #{enterTime,jdbcType=TIMESTAMP}, #{safetyProblem,jdbcType=VARCHAR}, 
+      #{safetyAnswer,jdbcType=VARCHAR}, #{approverNumbers,jdbcType=BIGINT}, #{status,jdbcType=INTEGER}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.demo.pojo.Admin">
+    update admin
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      admin_name = #{adminName,jdbcType=VARCHAR},
+      admin_number = #{adminNumber,jdbcType=VARCHAR},
+      admin_telephone = #{adminTelephone,jdbcType=BIGINT},
+      admin_sys = #{adminSys,jdbcType=INTEGER},
+      enter_time = #{enterTime,jdbcType=TIMESTAMP},
+      safety_problem = #{safetyProblem,jdbcType=VARCHAR},
+      safety_answer = #{safetyAnswer,jdbcType=VARCHAR},
+      approver_numbers = #{approverNumbers,jdbcType=BIGINT},
+      status = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, username, password, admin_name, admin_number, admin_telephone, admin_sys, 
+    enter_time, safety_problem, safety_answer, approver_numbers, status
+    from admin
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, username, password, admin_name, admin_number, admin_telephone, admin_sys, 
+    enter_time, safety_problem, safety_answer, approver_numbers, status
+    from admin
+  </select>
+</mapper>
