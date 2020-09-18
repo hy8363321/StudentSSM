@@ -4,12 +4,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.demo.pojo.Student;
 import com.demo.service.StudentService;
 import com.github.pagehelper.StringUtil;
-import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -67,8 +65,8 @@ public class StudentController {
 
     @RequestMapping("/import")
     public String importInfo(@RequestParam(value = "filename") MultipartFile file, Model model) throws Exception {
-        String message = "";
-        String fName = file.getOriginalFilename().trim();
+        String message;
+        String fName = Objects.requireNonNull(file.getOriginalFilename()).trim();
         String fileName = fName.substring(fName.lastIndexOf("\\") + 1);
         System.out.println(fileName);
         if (!fileName.matches("^.+\\.(?i)(xls)$") && !fileName.matches("^.+\\.(?i)(xlsx)$")) {
@@ -77,7 +75,7 @@ public class StudentController {
             return "error";
         }
         FileInputStream is = (FileInputStream) file.getInputStream();
-        Workbook workbook = null;
+        Workbook workbook;
         if (fileName.matches("^.+\\.(?i)(xlsx)$")) {
             workbook = new XSSFWorkbook(is);
         } else {
@@ -90,7 +88,6 @@ public class StudentController {
         Cell cell = null;
         for (int i = 0; i < celNum; i++) {
             String cellTitle = getCellFormatValue(row.getCell(i));
-            System.out.print(cellTitle + "|");
             if (StringUtil.isEmpty(cellTitle) || cellTitle.equals("")) {
                 message = "标题title为空";
                 model.addAttribute("message", message);
@@ -103,6 +100,7 @@ public class StudentController {
             }
         }
         for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
+            System.out.println(sheet.getPhysicalNumberOfRows());
             row = sheet.getRow(i);
             for (int j = 0; j < 11; j++) {
                 getCellFormatValue(row.getCell(j));
@@ -112,7 +110,7 @@ public class StudentController {
     }
 
     private String getCellFormatValue(Cell cell) {
-        String cellvalue = "";
+        String cellvalue;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         if (cell != null) {
             switch (cell.getCellType()) {
