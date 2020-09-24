@@ -5,8 +5,7 @@ import com.demo.service.impl.TestServiceImpl;
 import com.demo.util.FtpUtil;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.config.xml.ConfigurationParser;
@@ -15,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.File;
@@ -23,15 +23,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/*@RunWith(SpringRunner.class)
-@SpringBootTest*/
+@SpringBootTest
 public class appTest {
 
     @Autowired
     private TestService testService;
 
-    private static String PATH="D://workbook/";
+    @Autowired
+    private RedisTemplate<Object,Object> redisTemplate;
 
+    private static String PATH="D://workbook/";
+/*
     public void test() throws Exception{
 /*      List<String> warnings = new ArrayList<String>();
         boolean overwrite = true;
@@ -40,7 +42,7 @@ public class appTest {
         Configuration config = cp.parseConfiguration(configFile);
         DefaultShellCallback callback = new DefaultShellCallback(overwrite);
         MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config, callback, warnings);
-        myBatisGenerator.generate(null);*/
+        myBatisGenerator.generate(null);
     }
 
    public void ExcelWriteTest() throws Exception{
@@ -99,5 +101,11 @@ public class appTest {
 
     public void ftpTest(){
         ftpUtil.loginFtp();
+    }
+*/
+    @Test
+    public void contextRedis(){
+        redisTemplate.opsForValue().set("name","tangweimin");
+        System.out.println(redisTemplate.opsForValue().get("name"));
     }
 }
