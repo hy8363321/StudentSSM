@@ -2,6 +2,7 @@ package com.demo;
 
 import com.demo.service.TestService;
 import com.demo.util.FtpUtil;
+import com.demo.util.RedisUtil;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.junit.jupiter.api.Test;
@@ -27,8 +28,7 @@ public class appTest {
     private TestService testService;
 
     @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
-
+    private RedisUtil redis;
     private static String PATH = "D://workbook/";
 
     @Test
@@ -109,7 +109,7 @@ public class appTest {
 
     @Test
     public void contextRedis() {
-        redisTemplate.opsForValue().set("name", "tangweimin");
-        System.out.println(redisTemplate.opsForValue().get("name"));
+        redis.set("name","tangweimin");
+        System.out.println(redis.get("name"));
     }
 }
