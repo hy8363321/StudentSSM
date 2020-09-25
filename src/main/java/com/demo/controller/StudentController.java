@@ -26,16 +26,19 @@ public class StudentController {
     private StudentService studentService;
 
     @GetMapping("/getAll")
+    @ResponseBody
     public String getAll() {
         return JSONObject.toJSONString(studentService.selectAll());
     }
 
     @PostMapping("/addStudent")
-    public void addStudent(Student student) {
+    @ResponseBody
+    public void addStudent(@RequestBody Student student) {
         studentService.insert(student);
     }
 
     @PostMapping("/getAllById/{id}")
+    @ResponseBody
     public Student getAllById(@PathVariable Long id) {
         return studentService.selectByPrimaryKey(id);
     }

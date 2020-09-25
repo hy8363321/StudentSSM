@@ -1,7 +1,6 @@
 package com.demo;
 
 import com.demo.service.TestService;
-import com.demo.service.impl.TestServiceImpl;
 import com.demo.util.FtpUtil;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
@@ -11,11 +10,9 @@ import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.config.xml.ConfigurationParser;
 import org.mybatis.generator.internal.DefaultShellCallback;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -30,12 +27,13 @@ public class appTest {
     private TestService testService;
 
     @Autowired
-    private RedisTemplate<Object,Object> redisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
 
-    private static String PATH="D://workbook/";
-/*
-    public void test() throws Exception{
-/*      List<String> warnings = new ArrayList<String>();
+    private static String PATH = "D://workbook/";
+
+    @Test
+    public void test() throws Exception {
+        List<String> warnings = new ArrayList<String>();
         boolean overwrite = true;
         File configFile = new File("mbg.xml");
         ConfigurationParser cp = new ConfigurationParser(warnings);
@@ -45,19 +43,20 @@ public class appTest {
         myBatisGenerator.generate(null);
     }
 
-   public void ExcelWriteTest() throws Exception{
+    @Test
+    public void ExcelWriteTest() throws Exception {
 //        1.创建工作簿
         Workbook workbook = new HSSFWorkbook();
 //        2.创建工作表
         Sheet sheet = workbook.createSheet("人员");
 //        3.创建一行
-        Row row =sheet.createRow(0);
+        Row row = sheet.createRow(0);
 //        4.创建一个单元格
         Cell cell = row.createCell(0);
 //        5.写入数据
         cell.setCellValue("唐三");
 //        6.生成一张表（IO）流
-        FileOutputStream file = new FileOutputStream(PATH+"唐三.xls");
+        FileOutputStream file = new FileOutputStream(PATH + "唐三.xls");
 //        7.输出
         workbook.write(file);
 //        8.关闭
@@ -65,12 +64,13 @@ public class appTest {
         System.out.println("生成完成");
     }
 
-    public void ExcelWrite65536() throws Exception{
+    @Test
+    public void ExcelWrite65536() throws Exception {
         Workbook workbook = new HSSFWorkbook();
         Sheet sheet = workbook.createSheet();
-        for(int rowNum = 0; rowNum < 65536; rowNum++){
-            Row row =sheet.createRow(rowNum);
-            for (int cellNum = 0;cellNum < 10; cellNum++){
+        for (int rowNum = 0; rowNum < 65536; rowNum++) {
+            Row row = sheet.createRow(rowNum);
+            for (int cellNum = 0; cellNum < 10; cellNum++) {
                 Cell cell = row.createCell(cellNum);
                 cell.setCellValue(cellNum);
             }
@@ -82,14 +82,16 @@ public class appTest {
         System.out.println("生成完成");
     }
 
-    public void ExcelReport()throws Exception{
+    @Test
+    public void ExcelReport() throws Exception {
         new FileOutputStream("D://workbook/唐三.xls");
     }
 
-    public void importTest(){
-        com.demo.pojo.Test test1 = new com.demo.pojo.Test("qwer","root",new Date());
-        com.demo.pojo.Test test2 = new com.demo.pojo.Test("asdf","sadf",new Date());
-        com.demo.pojo.Test test3 = new com.demo.pojo.Test("zxcv","adfgdaf",new Date());
+    @Test
+    public void importTest() {
+        com.demo.pojo.Test test1 = new com.demo.pojo.Test("qwer", "root", new Date());
+        com.demo.pojo.Test test2 = new com.demo.pojo.Test("asdf", "sadf", new Date());
+        com.demo.pojo.Test test3 = new com.demo.pojo.Test("zxcv", "adfgdaf", new Date());
         List<com.demo.pojo.Test> list = new ArrayList<com.demo.pojo.Test>();
         list.add(test1);
         list.add(test2);
@@ -97,15 +99,17 @@ public class appTest {
         testService.importTest(list);
     }
 
+    @Autowired
     public FtpUtil ftpUtil;
 
-    public void ftpTest(){
+    @Test
+    public void ftpTest() {
         ftpUtil.loginFtp();
     }
-*/
+
     @Test
-    public void contextRedis(){
-        redisTemplate.opsForValue().set("name","tangweimin");
+    public void contextRedis() {
+        redisTemplate.opsForValue().set("name", "tangweimin");
         System.out.println(redisTemplate.opsForValue().get("name"));
     }
 }

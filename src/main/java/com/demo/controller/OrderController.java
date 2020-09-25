@@ -30,6 +30,7 @@ public class OrderController {
 
 
     @GetMapping("/getAll")
+    @ResponseBody
     public String getAll() {
         List<Order> list = orderSerivce.selectAll();
         System.out.println(list);
@@ -40,25 +41,29 @@ public class OrderController {
     }
 
     @PostMapping("/addOrder")
+    @ResponseBody
     public void addOrder(@RequestBody Order order) {
         orderSerivce.insert(order);
     }
 
     @GetMapping("/getAllById/{id}")
+    @ResponseBody
     public String getAllById(@PathVariable Long id) {
         String order = JSONObject.toJSONString(orderSerivce.selectByPrimaryKey(id));
         return order;
     }
 
     @GetMapping("/deleteById/{id}")
+    @ResponseBody
     public int deleteById(@PathVariable Long id) {
         return orderSerivce.deleteByPrimaryKey(id);
     }
 
     @RequestMapping("/excel")
-    public String excel(){
+    public String excel() {
         return "excel";
     }
+
     @RequestMapping("/export")
     @ResponseBody
     public String export(@RequestParam String fileName) {
@@ -106,7 +111,7 @@ public class OrderController {
             sheet.autoSizeColumn(i);
         }
         try {
-            FileOutputStream file = new FileOutputStream(PATH + fileName+".xls");
+            FileOutputStream file = new FileOutputStream(PATH + fileName + ".xls");
             workbook.write(file);
             file.close();
         } catch (IOException e) {
@@ -119,7 +124,7 @@ public class OrderController {
     /*
     时间类型转Sring
      */
-    public String formatDate(Date time){
+    public String formatDate(Date time) {
         SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         return date.format(time);
     }

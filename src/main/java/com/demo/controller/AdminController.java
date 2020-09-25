@@ -9,32 +9,37 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
+
     @Autowired
     private AdminService adminService;
 
     @PostMapping("/checkAdmin/{username}/{password}")
-    public Admin checkAdmin(@PathVariable String username, @PathVariable String password){
+    @ResponseBody
+    public Admin checkAdmin(@PathVariable String username, @PathVariable String password) {
         return null;
     }
 
     @PostMapping("/addAdmin")
-    public void addAdmin(@RequestBody Admin admin){
+    @ResponseBody
+    public void addAdmin(@RequestBody Admin admin) {
         adminService.insert(admin);
     }
 
     @GetMapping("/getAdmin")
-    public String getAdmin(){
-        String admin = JSONObject.toJSONString(adminService.selectAll());
-        return admin;
+    @ResponseBody
+    public String getAdmin() {
+        return JSONObject.toJSONString(adminService.selectAll());
     }
 
     @PostMapping("/updateAdminById")
-    public int updateAdminById(Admin admin){
+    @ResponseBody
+    public int updateAdminById(Admin admin) {
         return adminService.updateByPrimaryKey(admin);
     }
 
     @PostMapping("/deleteAdminById")
-    public int deleteAdminById(Long id){
+    @ResponseBody
+    public int deleteAdminById(Long id) {
         return adminService.deleteByPrimaryKey(id);
     }
 }

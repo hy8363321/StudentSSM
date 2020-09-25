@@ -2,7 +2,7 @@ package com.demo.pojo;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Student {
     private Long id;
@@ -34,7 +34,7 @@ public class Student {
     private Integer studentGraduateStatus;
 
     private Integer studentApplicationStatus;
-
+/*
     public Student(Long studentNumber, String studentPassword, String studentName, Integer studentSex, String studentNumberid, String studentSchool, String studentDepartment, String studentSpecialty, Long studentTelephone, Date studentEnterTime, Integer studentGraduateStatus, Integer studentApplicationStatus) {
         this.studentNumber = studentNumber;
         this.studentPassword = studentPassword;
@@ -49,6 +49,9 @@ public class Student {
         this.studentGraduateStatus = studentGraduateStatus;
         this.studentApplicationStatus = studentApplicationStatus;
     }
+
+    public Student() {
+    }*/
 
     public Long getId() {
         return id;
